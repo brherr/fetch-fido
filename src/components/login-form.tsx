@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useLogin } from "@/hooks/useLogin";
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate, useRouter } from "@tanstack/react-router";
+import { useFidoStore } from "@/lib/store";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "@/lib/utils";
@@ -22,6 +23,7 @@ export function LoginForm({
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<LoginT>({
     resolver: zodResolver(loginSchema),
@@ -29,16 +31,24 @@ export function LoginForm({
 
   const loginMutation = useLogin();
   const navigate = useNavigate();
+  const router = useRouter();
+  const setUser = useFidoStore((state) => state.setUser);
 
-  const onSubmit = (data: LoginT) => {
-    loginMutation.mutate(data, {
-      onSuccess: (data) => {
-        console.log("login successful", data);
+  const onSubmit = (values: LoginT) => {
+    loginMutation.mutate(values, {
+      onSuccess: () => {
+        const user = { ...values };
+        setUser(user);
+        router.update({ context: { user } });
         navigate({ to: "/" });
       },
       onError: (error) => {
-        // todo: toast & clear inputs
+        // todo: toast
         console.error("login failed", error);
+        reset({
+          name: "",
+          email: "",
+        });
       },
     });
   };

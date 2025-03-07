@@ -1,20 +1,13 @@
-import { useEffect } from "react";
 import {
-  createRootRoute,
   Link,
   Outlet,
-  useNavigate,
-  useLocation,
   createRootRouteWithContext,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
+import { UserT } from "@/lib/store";
 
-// Todo: when zustand is in, add context to root
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<{ user?: UserT }>()({
   component: () => {
-    const navigate = useNavigate();
-    const location = useLocation();
-
     return (
       <>
         <div className="p-2 flex gap-2">
