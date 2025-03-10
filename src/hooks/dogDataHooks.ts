@@ -8,11 +8,13 @@ import {
   DogT,
   DogIdsT,
 } from "@/lib/api/dogData";
+import { useFidoStore } from "@/lib/store";
 
-export const useSearchDogs = (searchParams: DogSearchT) => {
+export const useSearchDogs = () => {
+  const searchFilters = useFidoStore((state) => state.searchFilters);
   return useQuery<DogSearchResponse, Error>({
-    queryKey: ["searchDogs", searchParams],
-    queryFn: () => searchDogs(searchParams),
+    queryKey: ["searchDogs", searchFilters],
+    queryFn: () => searchDogs(searchFilters),
     // enabled: !!searchParams, // prevents fetch if no params
   });
 };

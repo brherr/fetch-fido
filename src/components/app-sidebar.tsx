@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useLocation } from "@tanstack/react-router";
 import { useFidoStore } from "@/lib/store";
 import { useSidebar } from "@/components/ui/sidebar";
 import {
@@ -72,26 +73,10 @@ const data = {
       ],
     },
   ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const location = useLocation();
   const user = useFidoStore((state) => state.user);
   const { open } = useSidebar();
   return (
@@ -101,7 +86,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavFilters />
+        {location.pathname === "/" && <NavFilters />}
       </SidebarContent>
       <SidebarFooter>
         <div className="flex items-center justify-center mb-2 gap-2 font-medium">

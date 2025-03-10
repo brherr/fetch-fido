@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useFidoStore } from "@/lib/store";
 import { useFetchBreeds } from "@/hooks/dogDataHooks";
 import { BreedMultiSelect } from "./BreedMultiSelect";
 import {
@@ -12,8 +13,6 @@ import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
-  SidebarMenuAction,
-  SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
@@ -26,8 +25,12 @@ import {
 } from "@/components/ui/select";
 
 export function NavFilters({}) {
-  const [selectedBreeds, setSelectedBreeds] = useState<string[]>([]);
+  // const [selectedBreeds, setSelectedBreeds] = useState<string[]>([]);
+
   const { isMobile } = useSidebar();
+  const searchFilters = useFidoStore((state) => state.searchFilters);
+  const setSort = useFidoStore((state) => state.setSort);
+  const setBreeds = useFidoStore((state) => state.setBreeds);
 
   const {
     data: dogBreeds,
@@ -37,7 +40,7 @@ export function NavFilters({}) {
 
   const multiSelectOptions =
     dogBreeds?.map((breed) => ({
-      value: breed.toLowerCase().replace(/\s+/g, "-"),
+      value: breed,
       label: breed,
     })) || [];
 
@@ -45,35 +48,29 @@ export function NavFilters({}) {
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel>Filters</SidebarGroupLabel>
       <SidebarMenu>
-        <SidebarMenuItem key="Filters">
-          <Select>
+        <SidebarMenuItem className="space-y-3" key="Filters">
+          <Select value={searchFilters.sort} onValueChange={setSort}>
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Sort " />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="breed:asc">Breed Ascending</SelectItem>
-              <SelectItem value="breed:desc">Breed Descending</SelectItem>
+              <SelectItem value="breed:asc">Breed (Ascending)</SelectItem>
+              <SelectItem value="breed:desc">Breed (Descending)</SelectItem>
+              <SelectItem value="name:asc">Name (Ascending)</SelectItem>
+              <SelectItem value="name:desc">Name (Descending)</SelectItem>
+              <SelectItem value="age:asc">Age (Ascending)</SelectItem>
+              <SelectItem value="age:desc">Age (Descending)</SelectItem>
             </SelectContent>
           </Select>
           <BreedMultiSelect
             options={multiSelectOptions}
-            onValueChange={setSelectedBreeds}
-            defaultValue={selectedBreeds}
+            onValueChange={setBreeds}
+            defaultValue={searchFilters.breeds}
             placeholder="Select Breeds..."
             variant="inverted"
             animation={2}
             maxCount={10}
           />
-          {/* <Select>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Breeds" />
-            </SelectTrigger>
-            <SelectContent>
-              {dogBreeds?.map((breed) => (
-                <SelectItem value={breed}>{breed}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select> */}
         </SidebarMenuItem>
       </SidebarMenu>
     </SidebarGroup>

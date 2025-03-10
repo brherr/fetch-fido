@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { createFileRoute, redirect } from "@tanstack/react-router";
+import { useFidoStore } from "@/lib/store";
 import { Dog } from "lucide-react";
 import { LoginForm } from "@/components/login-form";
 import DogImage from "../assets/dog-fetch-login.jpg";
@@ -11,6 +13,14 @@ export const Route = createFileRoute("/login")({
 });
 
 function Login() {
+  const resetFilters = useFidoStore((state) => state.resetFilters);
+  const clearFavorites = useFidoStore((state) => state.clearFavorites);
+
+  useEffect(() => {
+    resetFilters();
+    clearFavorites();
+  }, []);
+
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="flex flex-col gap-4 p-6 md:p-10">

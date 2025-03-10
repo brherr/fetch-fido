@@ -376,4 +376,4 @@ export const BreedMultiSelect = React.forwardRef<
   }
 );
 
-MultiSelect.displayName = "MultiSelect";
+BreedMultiSelect.displayName = "BreedMultiSelect";
