@@ -46,3 +46,8 @@ export const fetchDogs = async (dogIds: string[]): Promise<DogT[]> => {
   const response = await axiosInstance.post("/dogs", dogIds);
   return response.data;
 };
+
+export const fetchBreeds = async (): Promise<string[]> => {
+  const response = await axiosInstance.get("/dogs/breeds");
+  return response.data;
+};

@@ -2,6 +2,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import {
   searchDogs,
   fetchDogs,
+  fetchBreeds,
   DogSearchResponse,
   DogSearchT,
   DogT,
@@ -16,8 +17,15 @@ export const useSearchDogs = (searchParams: DogSearchT) => {
   });
 };
 
-export const useFetchDogs = () => {
-  return useMutation<DogT[], Error, DogIdsT>({
-    mutationFn: (data: DogIdsT) => fetchDogs(data),
+// export const useFetchDogs = () => {
+//   return useMutation<DogT[], Error, DogIdsT>({
+//     mutationFn: (data: DogIdsT) => fetchDogs(data),
+//   });
+// };
+
+export const useFetchBreeds = () => {
+  return useQuery<string[], Error>({
+    queryKey: ["fetchBreeds"],
+    queryFn: () => fetchBreeds(),
   });
 };
