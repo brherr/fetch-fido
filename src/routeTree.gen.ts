@@ -11,11 +11,18 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as MatchImport } from './routes/match'
 import { Route as LoginImport } from './routes/login'
 import { Route as FavoritesImport } from './routes/favorites'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const MatchRoute = MatchImport.update({
+  id: '/match',
+  path: '/match',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const LoginRoute = LoginImport.update({
   id: '/login',
@@ -60,6 +67,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
     }
+    '/match': {
+      id: '/match'
+      path: '/match'
+      fullPath: '/match'
+      preLoaderRoute: typeof MatchImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -69,12 +83,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/favorites': typeof FavoritesRoute
   '/login': typeof LoginRoute
+  '/match': typeof MatchRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/favorites': typeof FavoritesRoute
   '/login': typeof LoginRoute
+  '/match': typeof MatchRoute
 }
 
 export interface FileRoutesById {
@@ -82,14 +98,15 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/favorites': typeof FavoritesRoute
   '/login': typeof LoginRoute
+  '/match': typeof MatchRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/favorites' | '/login'
+  fullPaths: '/' | '/favorites' | '/login' | '/match'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/favorites' | '/login'
-  id: '__root__' | '/' | '/favorites' | '/login'
+  to: '/' | '/favorites' | '/login' | '/match'
+  id: '__root__' | '/' | '/favorites' | '/login' | '/match'
   fileRoutesById: FileRoutesById
 }
 
@@ -97,12 +114,14 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FavoritesRoute: typeof FavoritesRoute
   LoginRoute: typeof LoginRoute
+  MatchRoute: typeof MatchRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FavoritesRoute: FavoritesRoute,
   LoginRoute: LoginRoute,
+  MatchRoute: MatchRoute,
 }
 
 export const routeTree = rootRoute
@@ -117,7 +136,8 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/favorites",
-        "/login"
+        "/login",
+        "/match"
       ]
     },
     "/": {
@@ -128,6 +148,9 @@ export const routeTree = rootRoute
     },
     "/login": {
       "filePath": "login.tsx"
+    },
+    "/match": {
+      "filePath": "match.tsx"
     }
   }
 }

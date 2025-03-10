@@ -29,6 +29,10 @@ export interface DogSearchResponse {
   prev?: string;
 }
 
+export interface MatchResponseT {
+  match: string;
+}
+
 export interface DogIdsT {
   dogIds: string[];
 }
@@ -49,5 +53,10 @@ export const fetchDogs = async (dogIds: string[]): Promise<DogT[]> => {
 
 export const fetchBreeds = async (): Promise<string[]> => {
   const response = await axiosInstance.get("/dogs/breeds");
+  return response.data;
+};
+
+export const fetchMatch = async (dogIds: string[]): Promise<MatchResponseT> => {
+  const response = await axiosInstance.post("/dogs/match", dogIds);
   return response.data;
 };

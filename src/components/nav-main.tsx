@@ -1,7 +1,13 @@
 "use client";
 
 import { Link } from "@tanstack/react-router";
-import { ChevronRight, Heart, Dog, type LucideIcon } from "lucide-react";
+import {
+  ChevronRight,
+  Heart,
+  Dog,
+  PawPrint,
+  type LucideIcon,
+} from "lucide-react";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -42,6 +48,15 @@ export function NavMain({
             <SidebarMenuButton tooltip="Favorites" className="cursor-pointer">
               <Heart />
               <span>Favorites</span>
+              <ChevronRight className="ml-auto transition-transform duration-200 " />
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </Link>
+        <Link to="/match">
+          <SidebarMenuItem>
+            <SidebarMenuButton tooltip="Your Match" className="cursor-pointer">
+              <PawPrint />
+              <span>Your Match</span>
               <ChevronRight className="ml-auto transition-transform duration-200 " />
             </SidebarMenuButton>
           </SidebarMenuItem>
