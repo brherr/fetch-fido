@@ -17,7 +17,6 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const searchFilters = useFidoStore((state) => state.searchFilters);
   const setFrom = useFidoStore((state) => state.setFrom);
 
   const shouldScrollToTop = useRef(false);

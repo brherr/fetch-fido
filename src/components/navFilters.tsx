@@ -1,20 +1,11 @@
-import { useState } from "react";
 import { useFidoStore } from "@/lib/store";
 import { useFetchBreeds } from "@/hooks/dogDataHooks";
 import { BreedMultiSelect } from "./BreedMultiSelect";
-import {
-  Folder,
-  Forward,
-  MoreHorizontal,
-  Trash2,
-  type LucideIcon,
-} from "lucide-react";
 import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuItem,
-  useSidebar,
 } from "@/components/ui/sidebar";
 import {
   Select,

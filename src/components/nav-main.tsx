@@ -1,13 +1,7 @@
 "use client";
 
 import { Link } from "@tanstack/react-router";
-import {
-  ChevronRight,
-  Heart,
-  Dog,
-  PawPrint,
-  type LucideIcon,
-} from "lucide-react";
+import { ChevronRight, Heart, Dog, PawPrint } from "lucide-react";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -16,20 +10,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-export function NavMain({
-  items,
-}: {
-  items: {
-    title: string;
-    url: string;
-    icon?: LucideIcon;
-    isActive?: boolean;
-    items?: {
-      title: string;
-      url: string;
-    }[];
-  }[];
-}) {
+export function NavMain({}) {
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Platform</SidebarGroupLabel>
@@ -61,16 +42,6 @@ export function NavMain({
             </SidebarMenuButton>
           </SidebarMenuItem>
         </Link>
-
-        {/* {items.map((item) => (
-          <SidebarMenuItem>
-            <SidebarMenuButton tooltip={item.title}>
-              {item.icon && <item.icon />}
-              <span>{item.title}</span>
-              <ChevronRight className="ml-auto transition-transform duration-200 " />
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        ))} */}
       </SidebarMenu>
     </SidebarGroup>
   );

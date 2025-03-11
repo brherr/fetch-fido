@@ -3,10 +3,7 @@ import { createRoot } from "react-dom/client";
 import { routeTree } from "./routeTree.gen.ts";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-// import { useFidoStore } from "@/lib/store";
 import "./index.css";
-
-// const user = useFidoStore((state) => state.user);
 
 const router = createRouter({
   routeTree,

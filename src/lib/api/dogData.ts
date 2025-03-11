@@ -9,9 +9,8 @@ const dogSchema = z.object({
   zip_code: z.string(),
   breed: z.string(),
 });
-export type DogT = z.infer<typeof dogSchema>;
 
-export const dogSearchSchema = z.object({
+const dogSearchSchema = z.object({
   breeds: z.array(z.string()).optional(),
   zipCodes: z.array(z.string()).optional(),
   ageMin: z.number().optional(),
@@ -20,26 +19,31 @@ export const dogSearchSchema = z.object({
   from: z.string().optional(),
   sort: z.string(),
 });
+
+const dogSearchResponseSchema = z.object({
+  resultIds: z.array(z.string()),
+  total: z.number(),
+  next: z.string().optional(),
+  prev: z.string().optional(),
+});
+
+const matchResponseSchema = z.object({
+  match: z.string(),
+});
+
+const dogIdsSchema = z.object({
+  dogIds: z.string(),
+});
+
+export type DogT = z.infer<typeof dogSchema>;
 export type DogSearchT = z.infer<typeof dogSearchSchema>;
-
-export interface DogSearchResponse {
-  resultIds: string[];
-  total: number;
-  next?: string;
-  prev?: string;
-}
-
-export interface MatchResponseT {
-  match: string;
-}
-
-export interface DogIdsT {
-  dogIds: string[];
-}
+export type DogSearchResponseT = z.infer<typeof dogSearchResponseSchema>;
+export type MatchResponseT = z.infer<typeof matchResponseSchema>;
+export type DogIdsT = z.infer<typeof dogIdsSchema>;
 
 export const searchDogs = async (
   params: DogSearchT
-): Promise<DogSearchResponse> => {
+): Promise<DogSearchResponseT> => {
   const response = await axiosInstance.get("/dogs/search", {
     params,
   });

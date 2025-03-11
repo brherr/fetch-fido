@@ -2,17 +2,6 @@ import * as React from "react";
 import { useLocation } from "@tanstack/react-router";
 import { useFidoStore } from "@/lib/store";
 import { useSidebar } from "@/components/ui/sidebar";
-import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
-} from "lucide-react";
 import { NavMain } from "@/components/nav-main";
 import { NavFilters } from "@/components/navFilters";
 import { NavUser } from "@/components/nav-user";
@@ -25,56 +14,6 @@ import {
 } from "@/components/ui/sidebar";
 import { Dog } from "lucide-react";
 
-const data = {
-  navMain: [
-    {
-      title: "Playground",
-      url: "#",
-      icon: SquareTerminal,
-      isActive: true,
-      items: [
-        {
-          title: "History",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-      ],
-    },
-  ],
-};
-
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const location = useLocation();
   const user = useFidoStore((state) => state.user);
@@ -85,7 +24,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavUser user={user} />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain />
         {location.pathname === "/" && <NavFilters />}
       </SidebarContent>
       <SidebarFooter>
