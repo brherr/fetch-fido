@@ -36,10 +36,10 @@ const dogIdsSchema = z.object({
 });
 
 export type DogT = z.infer<typeof dogSchema>;
-export type DogSearchT = z.infer<typeof dogSearchSchema>;
-export type DogSearchResponseT = z.infer<typeof dogSearchResponseSchema>;
-export type MatchResponseT = z.infer<typeof matchResponseSchema>;
 export type DogIdsT = z.infer<typeof dogIdsSchema>;
+export type DogSearchT = z.infer<typeof dogSearchSchema>;
+export type MatchResponseT = z.infer<typeof matchResponseSchema>;
+export type DogSearchResponseT = z.infer<typeof dogSearchResponseSchema>;
 
 export const searchDogs = async (
   params: DogSearchT

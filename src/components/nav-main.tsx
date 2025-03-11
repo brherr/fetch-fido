@@ -1,6 +1,7 @@
 "use client";
 
 import { Link } from "@tanstack/react-router";
+import { useFidoStore } from "@/lib/store";
 import { ChevronRight, Heart, Dog, PawPrint } from "lucide-react";
 import {
   SidebarGroup,
@@ -11,9 +12,10 @@ import {
 } from "@/components/ui/sidebar";
 
 export function NavMain({}) {
+  const favorites = useFidoStore((state) => state.favorites);
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
+      <SidebarGroupLabel>Menu</SidebarGroupLabel>
       <SidebarMenu>
         <Link to="/">
           <SidebarMenuItem>
@@ -29,6 +31,11 @@ export function NavMain({}) {
             <SidebarMenuButton tooltip="Favorites" className="cursor-pointer">
               <Heart />
               <span>Favorites</span>
+              {favorites.length > 0 && (
+                <div className="pr-0.3 pb-0.45 h-4 w-4 bg-chart-5 rounded-full flex justify-center items-center text-xs font-medium shadow-sm leading-none">
+                  {favorites.length}
+                </div>
+              )}
               <ChevronRight className="ml-auto transition-transform duration-200 " />
             </SidebarMenuButton>
           </SidebarMenuItem>
