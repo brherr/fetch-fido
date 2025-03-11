@@ -25,9 +25,6 @@ import {
 } from "@/components/ui/select";
 
 export function NavFilters({}) {
-  // const [selectedBreeds, setSelectedBreeds] = useState<string[]>([]);
-
-  const { isMobile } = useSidebar();
   const searchFilters = useFidoStore((state) => state.searchFilters);
   const setSort = useFidoStore((state) => state.setSort);
   const setBreeds = useFidoStore((state) => state.setBreeds);

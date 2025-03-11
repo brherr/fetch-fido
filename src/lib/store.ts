@@ -10,6 +10,7 @@ type SearchFiltersT = {
   size: number;
   sort: string;
   breeds?: string[];
+  from?: string;
 };
 
 type StateT = {
@@ -19,6 +20,7 @@ type StateT = {
   setUser: (user?: UserT) => void;
   setSort: (sort: string) => void;
   setBreeds: (breeds: string[]) => void;
+  setFrom: (from: string) => void;
   resetFilters: () => void;
   addFavorite: (dogId: string) => void;
   removeFavorite: (dogId: string) => void;
@@ -36,12 +38,15 @@ export const useFidoStore = create<StateT>()(
       size: 24,
       sort: "breed:asc",
       breeds: [],
+      from: "",
     },
     setUser: (user) => set({ user }),
     setSort: (sort: string) =>
       set((state) => ({ searchFilters: { ...state.searchFilters, sort } })),
     setBreeds: (breeds: string[]) =>
       set((state) => ({ searchFilters: { ...state.searchFilters, breeds } })),
+    setFrom: (from: string) =>
+      set((state) => ({ searchFilters: { ...state.searchFilters, from } })),
     resetFilters: () =>
       set(() => ({
         searchFilters: { size: 24, sort: "breed:asc", breeds: [] },

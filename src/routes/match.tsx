@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { createFileRoute, redirect, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { fetchDogs, fetchMatch } from "@/lib/api/dogData";
@@ -15,17 +16,36 @@ export const Route = createFileRoute("/match")({
 });
 
 function Match() {
+  const [currentMatchId, setCurrentMatchId] = useState<string | null>(null);
+  const [shouldFetchMatch, setShouldFetchMatch] = useState(true);
+
   const favorites = useFidoStore((state) => state.favorites);
+
+  useEffect(() => {
+    if (currentMatchId && !favorites.includes(currentMatchId)) {
+      setCurrentMatchId(null);
+      setShouldFetchMatch(true);
+    }
+  }, [favorites, currentMatchId]);
 
   const {
     data: matchDetails,
     isLoading: matchLoading,
     error: matchError,
+    refetch: refetchMatch,
   } = useQuery({
     queryKey: ["fetchMatch", favorites],
     queryFn: () => fetchMatch(favorites),
-    enabled: favorites.length > 0,
+    enabled: favorites.length > 0 && shouldFetchMatch,
+    staleTime: Infinity,
   });
+
+  useEffect(() => {
+    if (matchDetails?.match && !currentMatchId) {
+      setCurrentMatchId(matchDetails.match);
+      setShouldFetchMatch(false);
+    }
+  }, [matchDetails, currentMatchId]);
 
   const {
     data: dogDetails,
@@ -33,13 +53,19 @@ function Match() {
     error: dogsError,
   } = useQuery({
     queryKey: ["fetchDogs", matchDetails?.match],
-    queryFn: () =>
-      matchDetails?.match
-        ? fetchDogs([matchDetails?.match])
-        : Promise.resolve([]),
-    enabled: !!matchDetails?.match,
+    queryFn: () => {
+      const matchId = currentMatchId || matchDetails?.match;
+      return matchId ? fetchDogs([matchId]) : Promise.resolve([]);
+    },
+    enabled: !!(currentMatchId || matchDetails?.match),
+    staleTime: Infinity,
   });
-  console.log("🚀 ~ Match ~ dogDetails:", dogDetails);
+
+  const handleGenerateMatch = () => {
+    setShouldFetchMatch(true);
+    setCurrentMatchId(null);
+    refetchMatch();
+  };
 
   return (
     <SideBarWrapper>
@@ -57,7 +83,14 @@ function Match() {
               </p>
             </div>
             <DogCard key={dogDetails[0].id} dog={dogDetails[0]} />
-            <div className="mt-6 flex justify-center">
+            <div className="mt-6 flex justify-center gap-2">
+              <Button
+                className="rounded-md py-2 px-4 border border-transparent text-sm text-white shadow-md hover:shadow-lg bg-amber-500 hover:bg-amber-600"
+                type="button"
+                onClick={handleGenerateMatch}
+              >
+                New Match
+              </Button>
               <Link to="/">
                 <Button
                   className="rounded-md py-2 px-4 border border-transparent text-sm text-white shadow-md hover:shadow-lg bg-chart-5 hover:bg-cyan-700"

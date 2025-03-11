@@ -20,7 +20,7 @@ export const Route = createRootRouteWithContext<{ user?: UserT }>()({
         </div> */}
         <hr />
         <Outlet />
-        {/* <TanStackRouterDevtools /> */}
+        <TanStackRouterDevtools />
       </>
     );
   },

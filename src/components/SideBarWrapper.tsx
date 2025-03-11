@@ -1,4 +1,5 @@
 import { JSX, ReactNode } from "react";
+import { useLocation } from "@tanstack/react-router";
 import { AppSidebar } from "@/components/app-sidebar";
 import {
   Breadcrumb,
@@ -20,6 +21,14 @@ interface SideBarLayoutT {
 }
 
 export const SideBarWrapper = ({ children }: SideBarLayoutT): JSX.Element => {
+  const location = useLocation();
+
+  const breadcrumbTitle = {
+    "/": "Search Dogs",
+    "/favorites": "Choose Your Favorites",
+    "/match": "Generate Your Match",
+  };
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -35,7 +44,13 @@ export const SideBarWrapper = ({ children }: SideBarLayoutT): JSX.Element => {
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Find Your New Best Friend</BreadcrumbPage>
+                  <BreadcrumbPage>
+                    {
+                      breadcrumbTitle[
+                        location.pathname as keyof typeof breadcrumbTitle
+                      ]
+                    }
+                  </BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
