@@ -33,7 +33,7 @@ const DogCard: React.FC<{ dog: DogT }> = ({ dog }) => {
       <div className="relative aspect-square overflow-hidden">
         <img
           src={dog.img}
-          alt="card-image"
+          alt="dog-card-image"
           className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
         />
       </div>
