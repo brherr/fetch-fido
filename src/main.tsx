@@ -4,6 +4,7 @@ import { createRoot } from "react-dom/client";
 import { routeTree } from "./routeTree.gen.ts";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "sonner";
 import "./index.css";
 
 async function initAxe() {
@@ -41,6 +42,7 @@ if (!rootElement.innerHTML) {
       <QueryClientProvider client={queryClient}>
         <main>
           <RouterProvider router={router} />
+          <Toaster position="top-right" richColors />
         </main>
       </QueryClientProvider>
     </StrictMode>

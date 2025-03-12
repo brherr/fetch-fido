@@ -19,11 +19,7 @@ export const Route = createFileRoute("/favorites")({
 function Favorites() {
   const favorites = useFidoStore((state) => state.favorites);
 
-  const {
-    data: dogDetails,
-    isLoading: dogsLoading,
-    error: dogsError,
-  } = useQuery({
+  const { data: dogDetails, error: dogsError } = useQuery({
     queryKey: ["fetchDogs", favorites],
     queryFn: () => fetchDogs(favorites),
     enabled: favorites.length > 0,
@@ -40,22 +36,11 @@ function Favorites() {
   return (
     <SideBarWrapper>
       {dogDetails ? (
-        !dogsLoading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
-            {dogDetails.map((dog) => (
-              <DogCard key={dog.id} dog={dog} />
-            ))}
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
-            {[...Array(24)].map((_, index) => (
-              <div
-                key={index}
-                className="aspect-square rounded-xl bg-muted/50 animate-pulse"
-              />
-            ))}
-          </div>
-        )
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
+          {dogDetails.map((dog) => (
+            <DogCard key={dog.id} dog={dog} />
+          ))}
+        </div>
       ) : (
         <div className="flex justify-center items-center h-full w-full">
           <div className="max-w-md w-full bg-card shadow-sm border border-slate-200 rounded-xl overflow-hidden transition duration-300 hover:shadow-md p-6">
