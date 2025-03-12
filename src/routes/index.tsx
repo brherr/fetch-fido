@@ -6,6 +6,7 @@ import { fetchDogs } from "@/lib/api/dogData";
 import { useSearchDogs } from "@/hooks/dogDataHooks";
 import DogCard from "@/components/DogCard";
 import { SideBarWrapper } from "@/components/SideBarWrapper";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -73,6 +74,19 @@ function Index() {
 
   const isLoading = searchLoading || dogsLoading;
   const isFirstPage = !searchData?.prev;
+
+  useEffect(() => {
+    if (dogsError) {
+      toast.error("Failed to load dogs", {
+        description: "Please try again or check your connection",
+      });
+    }
+    if (searchError) {
+      toast.error("Failed to load search data", {
+        description: "Please try again",
+      });
+    }
+  }, [dogsError, searchError]);
 
   return (
     <SideBarWrapper>

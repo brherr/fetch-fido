@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { searchDogs, fetchBreeds, DogSearchResponse } from "@/lib/api/dogData";
+import { searchDogs, fetchBreeds, DogSearchResponseT } from "@/lib/api/dogData";
 import { useFidoStore } from "@/lib/store";
 
 export const useSearchDogs = () => {
   const searchFilters = useFidoStore((state) => state.searchFilters);
-  return useQuery<DogSearchResponse, Error>({
+  return useQuery<DogSearchResponseT, Error>({
     queryKey: ["searchDogs", searchFilters],
     queryFn: () => searchDogs(searchFilters),
   });

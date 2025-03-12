@@ -11,7 +11,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-export function NavMain({}) {
+export function NavMain() {
   const favorites = useFidoStore((state) => state.favorites);
   return (
     <SidebarGroup>

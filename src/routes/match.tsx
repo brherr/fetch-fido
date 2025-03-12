@@ -5,6 +5,7 @@ import { fetchDogs, fetchMatch } from "@/lib/api/dogData";
 import { useFidoStore } from "@/lib/store";
 import DogCard from "@/components/DogCard";
 import { SideBarWrapper } from "@/components/SideBarWrapper";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
 
@@ -67,6 +68,19 @@ function Match() {
     refetchMatch();
   };
 
+  useEffect(() => {
+    if (dogsError) {
+      toast.error("Failed to load dogs", {
+        description: "Please try again or check your connection",
+      });
+    }
+    if (matchError) {
+      toast.error("Failed to load match data", {
+        description: "Please try again",
+      });
+    }
+  }, [dogsError, matchError]);
+
   return (
     <SideBarWrapper>
       <div className="flex justify-center items-center h-full w-full">
@@ -118,7 +132,7 @@ function Match() {
               </p>
               <Link to="/">
                 <Button
-                  className="rounded-md w-full py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg active:shadow-none cursor-pointer bg-chart-5 text-white hover:bg-cyan-700 active:bg-cyan-700"
+                  className="rounded-md w-full py-2 px-4 border border-transparent text-center text-sm transition-all shadow-md hover:shadow-lg active:shadow-none cursor-pointer bg-chart-5 text-white hover:bg-cyan-700 active:bg-cyan-700"
                   type="button"
                 >
                   <Heart className="mr-2" />

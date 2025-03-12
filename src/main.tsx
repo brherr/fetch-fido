@@ -39,7 +39,9 @@ if (!rootElement.innerHTML) {
   root.render(
     <StrictMode>
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
+        <main>
+          <RouterProvider router={router} />
+        </main>
       </QueryClientProvider>
     </StrictMode>
   );

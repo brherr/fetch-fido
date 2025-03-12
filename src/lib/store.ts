@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { create, StateCreator } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 import { z } from "zod";

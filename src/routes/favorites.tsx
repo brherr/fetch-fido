@@ -1,9 +1,11 @@
+import { useEffect } from "react";
 import { createFileRoute, redirect, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { fetchDogs } from "@/lib/api/dogData";
 import { useFidoStore } from "@/lib/store";
 import DogCard from "@/components/DogCard";
 import { SideBarWrapper } from "@/components/SideBarWrapper";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
 
@@ -27,14 +29,33 @@ function Favorites() {
     enabled: favorites.length > 0,
   });
 
+  useEffect(() => {
+    if (dogsError) {
+      toast.error("Failed to load dogs", {
+        description: "Please try again or check your connection",
+      });
+    }
+  }, [dogsError]);
+
   return (
     <SideBarWrapper>
       {dogDetails ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
-          {dogDetails.map((dog) => (
-            <DogCard key={dog.id} dog={dog} />
-          ))}
-        </div>
+        !dogsLoading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
+            {dogDetails.map((dog) => (
+              <DogCard key={dog.id} dog={dog} />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
+            {[...Array(24)].map((_, index) => (
+              <div
+                key={index}
+                className="aspect-square rounded-xl bg-muted/50 animate-pulse"
+              />
+            ))}
+          </div>
+        )
       ) : (
         <div className="flex justify-center items-center h-full w-full">
           <div className="max-w-md w-full bg-card shadow-sm border border-slate-200 rounded-xl overflow-hidden transition duration-300 hover:shadow-md p-6">
@@ -50,7 +71,7 @@ function Favorites() {
             <div className="p-4 flex flex-col items-center">
               <Link to="/">
                 <Button
-                  className="rounded-md w-full py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg active:shadow-none cursor-pointer bg-chart-5 text-white hover:bg-cyan-700 active:bg-cyan-700"
+                  className="rounded-md w-full py-2 px-4 border border-transparent text-center text-sm transition-all shadow-md hover:shadow-lg active:shadow-none cursor-pointer bg-chart-5 text-white hover:bg-cyan-700 active:bg-cyan-700"
                   type="button"
                 >
                   <Heart className="mr-2" />

@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import { useFidoStore } from "@/lib/store";
 import { useFetchBreeds } from "@/hooks/dogDataHooks";
 import { BreedMultiSelect } from "./BreedMultiSelect";
+import { toast } from "sonner";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -15,22 +17,26 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export function NavFilters({}) {
+export function NavFilters() {
   const searchFilters = useFidoStore((state) => state.searchFilters);
   const setSort = useFidoStore((state) => state.setSort);
   const setBreeds = useFidoStore((state) => state.setBreeds);
 
-  const {
-    data: dogBreeds,
-    isLoading: breedsLoading,
-    error: breedsError,
-  } = useFetchBreeds();
+  const { data: dogBreeds, error: breedsError } = useFetchBreeds();
 
   const multiSelectOptions =
     dogBreeds?.map((breed) => ({
       value: breed,
       label: breed,
     })) || [];
+
+  useEffect(() => {
+    if (breedsError) {
+      toast.error("Failed to load dog breeds", {
+        description: "Please try again or check your connection",
+      });
+    }
+  }, [breedsError]);
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
