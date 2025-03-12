@@ -1,3 +1,4 @@
+import React from "react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { routeTree } from "./routeTree.gen.ts";
@@ -5,12 +6,25 @@ import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./index.css";
 
+async function initAxe() {
+  if (import.meta.env.MODE === "development") {
+    const axe = await import("@axe-core/react");
+    const ReactDOM = await import("react-dom");
+
+    axe.default(React, ReactDOM.default, 1000);
+    console.log("axe-core initialized for accessibility testing");
+  }
+}
+
+initAxe();
+
 const router = createRouter({
   routeTree,
   context: {
     user: undefined,
   },
 });
+
 const queryClient = new QueryClient();
 
 declare module "@tanstack/react-router" {

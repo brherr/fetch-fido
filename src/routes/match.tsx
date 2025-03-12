@@ -85,7 +85,7 @@ function Match() {
             <DogCard key={dogDetails[0].id} dog={dogDetails[0]} />
             <div className="mt-6 flex justify-center gap-2">
               <Button
-                className="rounded-md py-2 px-4 border border-transparent text-sm text-white shadow-md hover:shadow-lg bg-amber-500 hover:bg-amber-600"
+                className="rounded-md py-2 px-4 border border-transparent text-sm text-white shadow-md hover:shadow-lg bg-amber-500 hover:bg-amber-600 cursor-pointer"
                 type="button"
                 onClick={handleGenerateMatch}
               >
@@ -93,7 +93,7 @@ function Match() {
               </Button>
               <Link to="/">
                 <Button
-                  className="rounded-md py-2 px-4 border border-transparent text-sm text-white shadow-md hover:shadow-lg bg-chart-5 hover:bg-cyan-700"
+                  className="rounded-md py-2 px-4 border border-transparent text-sm text-white shadow-md hover:shadow-lg bg-chart-5 hover:bg-cyan-700 cursor-pointer"
                   type="button"
                 >
                   Find More Dogs

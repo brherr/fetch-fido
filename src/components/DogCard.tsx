@@ -8,11 +8,11 @@ import { Heart } from "lucide-react";
 const DogCard: React.FC<{ dog: DogT }> = ({ dog }) => {
   const [cityState, setCityState] = useState(dog.zip_code);
 
+  const favorites = useFidoStore((state) => state.favorites);
   const { addFavorite } = useFidoStore((state) => state);
   const { removeFavorite } = useFidoStore((state) => state);
 
   const isInFavoritesState = (dogId: string) => {
-    const favorites = useFidoStore((state) => state.favorites);
     return favorites.includes(dogId);
   };
 
@@ -33,7 +33,7 @@ const DogCard: React.FC<{ dog: DogT }> = ({ dog }) => {
       <div className="relative aspect-square overflow-hidden">
         <img
           src={dog.img}
-          alt="dog-card-image"
+          alt="dog-card"
           className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
         />
       </div>
