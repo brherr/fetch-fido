@@ -1,54 +1,74 @@
-# React + TypeScript + Vite
+# 🐕 Fetch Fido
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern web application for browsing adoptable dogs and finding your perfect furry companion.
 
-Currently, two official plugins are available:
+**[View Live Demo](https://update-this.app/)** 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📖 Introduction
 
-## Expanding the ESLint configuration
+Fetch Fido is a personal project I built to explore and learn new technologies while creating something useful. I intentionally chose libraries and frameworks that were new to me as a challenge and learning opportunity. This project allowed me to push beyond my comfort zone and expand my development skills while building a responsive, user-friendly application for dog adoption.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Tech Stack
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### Frontend
+- **Vite** - Fast, modern build tool and development server
+- **React** - UI library for building component-based interfaces
+- **TypeScript** - Static type-checking for JavaScript
+- **TanStack Query** - Data fetching and caching library
+- **TanStack Router** - Type-safe routing for React applications
+- **Zustand** - Lightweight state management
+- **Zod** - TypeScript-first schema validation
+- **shadcn/ui** - Reusable UI components built with Radix UI
+- **Tailwind CSS** - Utility-first CSS framework for styling
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Testing & Quality
+- **Vitest** - Fast testing framework compatible with Vite
+- **React Testing Library** - Testing utilities focused on user behavior
+- **axe-core** - Accessibility testing engine
+- **eslint-plugin-jsx-a11y** - Static accessibility linting
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🚀 Getting Started
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### Prerequisites
+
+- Node.js (v14 or later)
+- npm 
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/brherr/fetch-fido.git
+   cd fetch-fido
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+5. Open [http://localhost:3000](http://localhost:5173) in your browser to see the application.
+
+## 🔍 Features
+
+- Browse dogs available for adoption
+- Filter by breed, age, size, and more
+- Responsive design works on mobile and desktop
+- Fast, modern web experience
+
+## 📱 Screenshots
+
+*[Consider adding screenshots of your application here]*
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🙏 Acknowledgements
+
+- All the amazing open-source libraries that made this project possible
