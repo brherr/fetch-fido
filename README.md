@@ -2,7 +2,7 @@
 
 A modern web application for browsing adoptable dogs and finding your perfect furry companion.
 
-**[View Live Demo](https://brherr.github.io/fetch-fido/)** 
+**<a href="https://brherr.github.io/fetch-fido/" target="_blank">View Live Demo</a>** 
 
 ## 📖 Introduction
 
