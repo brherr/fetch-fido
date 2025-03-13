@@ -2,9 +2,9 @@ import * as React from "react";
 import { useLocation } from "@tanstack/react-router";
 import { useFidoStore } from "@/lib/store";
 import { useSidebar } from "@/components/ui/sidebar";
-import { NavMain } from "@/components/nav-main";
-import { NavFilters } from "@/components/navFilters";
-import { NavUser } from "@/components/nav-user";
+import { NavMain } from "@/components/NavMain";
+import { NavFilters } from "@/components/NavFilters";
+import { NavUser } from "@/components/NavUser";
 import {
   Sidebar,
   SidebarContent,

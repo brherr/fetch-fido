@@ -43,7 +43,6 @@ export function LoginForm({
         navigate({ to: "/" });
       },
       onError: (error) => {
-        // todo: toast
         console.error("login failed", error);
         reset({
           name: "",
@@ -89,7 +88,9 @@ export function LoginForm({
             {...register("email")}
           />
           {errors.email && (
-            <p className="text-red-500 text-sm">{errors.email.message}</p>
+            <p className="text-red-500 text-sm" data-testid="email-error">
+              {errors.email.message}
+            </p>
           )}
         </div>
 

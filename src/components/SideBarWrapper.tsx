@@ -1,6 +1,6 @@
 import { JSX, ReactNode, useMemo } from "react";
 import { useLocation } from "@tanstack/react-router";
-import { AppSidebar } from "@/components/app-sidebar";
+import { AppSidebar } from "@/components/AppSidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
