@@ -2,7 +2,7 @@
 
 A modern web application for browsing adoptable dogs and finding your perfect furry companion.
 
-**<a href="https://brherr.github.io/fetch-fido/" target="_blank">View Live Demo</a>** 
+**<a href="https://brherr.github.io/fetch-fido/" target="_blank">View Live Demo</a>**
 
 ## 📖 Introduction
 
@@ -11,6 +11,7 @@ Fetch Fido is a personal project I built to explore and learn new technologies w
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - **Vite** - Fast, modern build tool and development server
 - **React** - UI library for building component-based interfaces
 - **TypeScript** - Static type-checking for JavaScript
@@ -22,6 +23,7 @@ Fetch Fido is a personal project I built to explore and learn new technologies w
 - **Tailwind CSS** - Utility-first CSS framework for styling
 
 ### Testing & Quality
+
 - **Vitest** - Fast testing framework compatible with Vite **(First time using)**
 - **React Testing Library** - Testing utilities focused on user behavior
 - **axe-core** - Accessibility testing engine
@@ -32,27 +34,30 @@ Fetch Fido is a personal project I built to explore and learn new technologies w
 ### Prerequisites
 
 - Node.js (v14 or later)
-- npm 
+- npm
 
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/brherr/fetch-fido.git
    cd fetch-fido
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
 
 3. Start the development server:
+
    ```bash
    npm run dev
    ```
 
-5. Open [http://localhost:5173](http://localhost:5173) in your browser to see the application.
+4. Open [http://localhost:5173](http://localhost:5173) in your browser to see the application.
 
 ## 🔍 Features
 
@@ -64,7 +69,7 @@ Fetch Fido is a personal project I built to explore and learn new technologies w
 
 ## 📱 Screenshots
 
-*[Consider adding screenshots of your application here]*
+![Fetch Fido Homepage](.src/assets/fetch-fido-search.jpg)
 
 ## 📄 License
 
