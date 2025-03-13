@@ -13,6 +13,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { Dog } from "lucide-react";
+import { isHomePage } from "@/lib/helpers/helpers";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const location = useLocation();
@@ -25,7 +26,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain />
-        {location.pathname === "/" && <NavFilters />}
+        {isHomePage(location.pathname) && <NavFilters />}
       </SidebarContent>
       <SidebarFooter>
         <div className="flex items-center justify-center mb-2 gap-2 font-medium">
