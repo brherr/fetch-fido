@@ -1,4 +1,4 @@
-import { JSX, ReactNode } from "react";
+import { JSX, ReactNode, useMemo } from "react";
 import { useLocation } from "@tanstack/react-router";
 import { AppSidebar } from "@/components/app-sidebar";
 import {
@@ -22,12 +22,27 @@ interface SideBarLayoutT {
 
 export const SideBarWrapper = ({ children }: SideBarLayoutT): JSX.Element => {
   const location = useLocation();
+  const baseUrl = import.meta.env.BASE_URL;
 
   const breadcrumbTitle = {
     "/": "Search Dogs",
     "/favorites": "Choose Your Favorites",
     "/match": "Generate Your Match",
   };
+
+  const getNormalizedPath = (path: string) => {
+    if (baseUrl !== "/") {
+      if (path.startsWith(baseUrl)) {
+        return path.substring(baseUrl.length - 1) || "/";
+      }
+    }
+    return path;
+  };
+
+  const normalizedPath = useMemo(
+    () => getNormalizedPath(location.pathname),
+    [location.pathname, baseUrl]
+  );
 
   return (
     <SidebarProvider>
@@ -45,11 +60,9 @@ export const SideBarWrapper = ({ children }: SideBarLayoutT): JSX.Element => {
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
                   <BreadcrumbPage>
-                    {
-                      breadcrumbTitle[
-                        location.pathname as keyof typeof breadcrumbTitle
-                      ]
-                    }
+                    {breadcrumbTitle[
+                      normalizedPath as keyof typeof breadcrumbTitle
+                    ] || "Search Dogs"}
                   </BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
