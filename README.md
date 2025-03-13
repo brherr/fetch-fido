@@ -69,7 +69,7 @@ Fetch Fido is a personal project I built to explore and learn new technologies w
 
 ## 📱 Screenshots
 
-![Fetch Fido Homepage](.src/assets/fetch-fido-search.jpg)
+![Fetch Fido Homepage](./src/assets/fetch-fido-search.jpg)
 
 ## 📄 License
 
