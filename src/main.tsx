@@ -20,6 +20,7 @@ async function initAxe() {
 initAxe();
 
 const router = createRouter({
+  basepath: import.meta.env.PROD ? "/fetch-fido" : "",
   routeTree,
   context: {
     user: undefined,
