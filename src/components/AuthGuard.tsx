@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { useFidoStore } from "@/lib/store";
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate, useLocation } from "@tanstack/react-router";
 
 function AuthGuard({ children }: { children: React.ReactNode }) {
   const user = useFidoStore((state) => state.user);
   const hasHydrated = useFidoStore((state) => state._hasHydrated);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if (hasHydrated) {
