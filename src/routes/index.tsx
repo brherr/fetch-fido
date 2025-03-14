@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useFidoStore } from "@/lib/store";
 import { useQuery } from "@tanstack/react-query";
 import { fetchDogs } from "@/lib/api/dogData";
