@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { createFileRoute, redirect, Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { fetchDogs } from "@/lib/api/dogData";
 import { useFidoStore } from "@/lib/store";
@@ -11,9 +11,6 @@ import { Heart } from "lucide-react";
 
 export const Route = createFileRoute("/favorites")({
   component: Favorites,
-  beforeLoad: async ({ context }) => {
-    if (!context.user) throw redirect({ to: "/login" });
-  },
 });
 
 function Favorites() {

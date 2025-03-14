@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useFidoStore } from "@/lib/store";
 import { Dog } from "lucide-react";
 import { LoginForm } from "@/components/LoginForm";
@@ -7,9 +7,6 @@ import DogImage from "../assets/dog-fetch-login.jpg";
 
 export const Route = createFileRoute("/login")({
   component: Login,
-  beforeLoad: ({ context }) => {
-    if (context.user) throw redirect({ to: "/" });
-  },
 });
 
 function Login() {

@@ -24,6 +24,7 @@ const stateSchema = z.object({
     breeds: [],
     from: "",
   }),
+  _hasHydrated: z.boolean().default(false),
 });
 
 export type UserT = z.infer<typeof userSchema>;
@@ -39,99 +40,107 @@ type StoreActionsT = {
   addFavorite: (dogId: string) => void;
   removeFavorite: (dogId: string) => void;
   clearFavorites: () => void;
+  _onHydrate: () => void;
 };
 
 type StateT = StoreStateT & StoreActionsT;
 
-const middleware = <T>(f: StateCreator<T>) =>
-  devtools(persist(f, { name: "all-storage" }));
-
 export const useFidoStore = create<StateT>()(
-  middleware((set, get) => ({
-    user: undefined,
-    favorites: [],
-    searchFilters: {
-      size: 24,
-      sort: "breed:asc",
-      breeds: [],
-      from: "",
-    },
-    setUser: (user) => {
-      // validate user if provided
-      if (user) {
-        const result = userSchema.safeParse(user);
-        if (!result.success) {
-          console.error("Invalid user data:", result.error);
-          return;
-        }
-      }
-      set({ user });
-    },
-    setSort: (sort: string) => {
-      // validate sort string
-      if (typeof sort !== "string" || sort.trim() === "") {
-        console.error("Invalid sort value");
-        return;
-      }
-      set((state) => ({
-        searchFilters: { ...state.searchFilters, sort },
-      }));
-    },
-    setBreeds: (breeds: string[]) => {
-      // validate breeds array
-      if (!Array.isArray(breeds)) {
-        console.error("Breeds must be an array");
-        return;
-      }
-      set((state) => ({
-        searchFilters: { ...state.searchFilters, breeds },
-      }));
-    },
-    setFrom: (from: string) => {
-      // validate from string
-      if (typeof from !== "string") {
-        console.error("From must be a string");
-        return;
-      }
-      set((state) => ({
-        searchFilters: { ...state.searchFilters, from },
-      }));
-    },
-    resetFilters: () => {
-      // get default values from the schema
-      const defaults = searchFiltersSchema.parse({
+  persist(
+    (set, get) => ({
+      user: undefined,
+      favorites: [],
+      searchFilters: {
         size: 24,
         sort: "breed:asc",
         breeds: [],
         from: "",
-      });
-      set(() => ({ searchFilters: defaults }));
-    },
-    addFavorite: (dogId: string) => {
-      // validate dogId
-      if (typeof dogId !== "string" || dogId.trim() === "") {
-        console.error("Invalid dog ID");
-        return;
-      }
-      // check if already in favorites
-      const favorites = get().favorites;
-      if (favorites.includes(dogId)) {
-        return; // already in favorites
-      }
-      set((state) => ({ favorites: [...state.favorites, dogId] }));
-    },
-    removeFavorite: (dogId: string) => {
-      // validate dogId
-      if (typeof dogId !== "string") {
-        console.error("Invalid dog ID");
-        return;
-      }
-      set((state) => ({
-        favorites: state.favorites.filter((id) => id !== dogId),
-      }));
-    },
-    clearFavorites: () => set({ favorites: [] }),
-  }))
+      },
+      _hasHydrated: false,
+      _onHydrate: () => set({ _hasHydrated: true }),
+      setUser: (user) => {
+        // validate user if provided
+        if (user) {
+          const result = userSchema.safeParse(user);
+          if (!result.success) {
+            console.error("Invalid user data:", result.error);
+            return;
+          }
+        }
+        set({ user });
+      },
+      setSort: (sort: string) => {
+        // validate sort string
+        if (typeof sort !== "string" || sort.trim() === "") {
+          console.error("Invalid sort value");
+          return;
+        }
+        set((state) => ({
+          searchFilters: { ...state.searchFilters, sort },
+        }));
+      },
+      setBreeds: (breeds: string[]) => {
+        // validate breeds array
+        if (!Array.isArray(breeds)) {
+          console.error("Breeds must be an array");
+          return;
+        }
+        set((state) => ({
+          searchFilters: { ...state.searchFilters, breeds },
+        }));
+      },
+      setFrom: (from: string) => {
+        // validate from string
+        if (typeof from !== "string") {
+          console.error("From must be a string");
+          return;
+        }
+        set((state) => ({
+          searchFilters: { ...state.searchFilters, from },
+        }));
+      },
+      resetFilters: () => {
+        // get default values from the schema
+        const defaults = searchFiltersSchema.parse({
+          size: 24,
+          sort: "breed:asc",
+          breeds: [],
+          from: "",
+        });
+        set(() => ({ searchFilters: defaults }));
+      },
+      addFavorite: (dogId: string) => {
+        // validate dogId
+        if (typeof dogId !== "string" || dogId.trim() === "") {
+          console.error("Invalid dog ID");
+          return;
+        }
+        // check if already in favorites
+        const favorites = get().favorites;
+        if (favorites.includes(dogId)) {
+          return; // already in favorites
+        }
+        set((state) => ({ favorites: [...state.favorites, dogId] }));
+      },
+      removeFavorite: (dogId: string) => {
+        // validate dogId
+        if (typeof dogId !== "string") {
+          console.error("Invalid dog ID");
+          return;
+        }
+        set((state) => ({
+          favorites: state.favorites.filter((id) => id !== dogId),
+        }));
+      },
+      clearFavorites: () => set({ favorites: [] }),
+    }),
+    {
+      name: "all-storage",
+      onRehydrateStorage: () => (state) => {
+        state?._onHydrate();
+      },
+    }
+  )
 );
 
 // export validator helpers if needed

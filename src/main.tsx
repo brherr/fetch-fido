@@ -22,9 +22,6 @@ initAxe();
 const router = createRouter({
   basepath: import.meta.env.DEV ? "" : "/fetch-fido/",
   routeTree,
-  context: {
-    user: undefined,
-  },
 });
 
 const queryClient = new QueryClient();
